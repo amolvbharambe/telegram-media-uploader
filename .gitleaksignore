@@ -1,0 +1,14 @@
+# .gitleaksignore
+# These findings are intentional and safe — they are Telegram Desktop's official
+# public open-source fallback credentials (api_id=2040, api_hash=b18441a1ff607e10a989891a5462e627)
+# and a sequential dummy placeholder used in documentation examples.
+# Reference: https://github.com/telegramdesktop/tdesktop/blob/dev/Telegram/SourceFiles/mtproto/details/mtproto_dc_key_creator.cpp
+
+# app/config.py — Telegram Desktop public fallback api_hash
+f1d4182f070247296399cd205902fd86d244fe2e:app/config.py:generic-api-key:19
+
+# config.example.json — same public fallback api_hash
+f1d4182f070247296399cd205902fd86d244fe2e:config.example.json:generic-api-key:3
+
+# README.md — sequential dummy placeholder (0123456789abcdef...) used in example table
+f1d4182f070247296399cd205902fd86d244fe2e:README.md:generic-api-key:138
