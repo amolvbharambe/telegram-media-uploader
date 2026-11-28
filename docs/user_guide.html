@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Telegram Resumable Media Uploader - Setup & User Guide</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm 15mm 20mm 15mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      font-size: 11pt;
+      margin: 0;
+      padding: 0;
+    }
+    .cover {
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 80vh;
+      padding-top: 40px;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 10pt;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    .cover h1 {
+      font-size: 28pt;
+      line-height: 1.2;
+      color: #0f172a;
+      margin: 0 0 16px 0;
+      font-weight: 800;
+    }
+    .cover .subtitle {
+      font-size: 14pt;
+      color: #475569;
+      margin-bottom: 30px;
+      max-width: 650px;
+    }
+    .cover-meta {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #e2e8f0;
+      font-size: 10pt;
+      color: #64748b;
+    }
+    .toc {
+      page-break-after: always;
+      padding-top: 20px;
+    }
+    .toc h2 {
+      font-size: 18pt;
+      color: #0f172a;
+      border-bottom: 2px solid #24A1DE;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc li {
+      padding: 8px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 500;
+    }
+    .toc li span.title {
+      color: #1e293b;
+    }
+    .toc li span.num {
+      color: #24A1DE;
+      font-weight: 700;
+    }
+    h2 {
+      font-size: 16pt;
+      color: #0f172a;
+      border-bottom: 1.5px solid #24A1DE;
+      padding-bottom: 6px;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 13pt;
+      color: #1e293b;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+    p, li {
+      color: #334155;
+    }
+    ul, ol {
+      margin-top: 6px;
+      margin-bottom: 14px;
+      padding-left: 22px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9.5pt;
+      border: 1px solid #e2e8f0;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 9pt;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin: 12px 0 18px 0;
+      page-break-inside: avoid;
+    }
+    .callout {
+      background: #f0f9ff;
+      border-left: 4px solid #24A1DE;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      page-break-inside: avoid;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: #0284c7;
+      margin-bottom: 4px;
+      font-size: 10.5pt;
+    }
+    .warning-callout {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+    }
+    .warning-callout .callout-title {
+      color: #b45309;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 10pt;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .step-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+    .step-header {
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .step-badge {
+      background: #24A1DE;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      font-weight: 700;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="cover-badge">OFFICIAL USER &amp; SETUP GUIDE</div>
+    <h1>Telegram Resumable Media Uploader</h1>
+    <div class="subtitle">
+      A High-Performance, Chunked Resumable Media Uploader for Telegram Groups &amp; Channels with Native Instant Video Streaming and Duplicate Prevention.
+    </div>
+
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-top: 15px;">
+      <strong>Core Capabilities:</strong>
+      <ul style="margin-bottom: 0; margin-top: 8px;">
+        <li>⚡ <strong>Resumable MTProto Chunk Engine:</strong> Stateful recovery with zero restart on disconnects.</li>
+        <li>▶️ <strong>Native Video Streaming:</strong> Lossless faststart MP4 index remuxing (zero re-encoding).</li>
+        <li>🛡️ <strong>Group Duplicate Detection:</strong> Scans group history and prevents re-uploading duplicate files.</li>
+        <li>📱 <strong>Multi-Platform:</strong> Native macOS App, Desktop Web Dashboard &amp; Native Android App.</li>
+        <li>🔒 <strong>100% Private &amp; Self-Hosted:</strong> Your sessions, bot tokens, and files stay on your machine.</li>
+      </ul>
+    </div>
+
+    <div class="cover-meta">
+      <strong>Document Version:</strong> 1.3.0<br>
+      <strong>Repository:</strong> <a href="https://github.com/amolvbharambe/telegram-media-uploader" style="color: #24A1DE; text-decoration: none;">github.com/amolvbharambe/telegram-media-uploader</a>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ul>
+      <li><span class="title">1. Introduction &amp; Architecture Overview</span><span class="num">01</span></li>
+      <li><span class="title">2. Prerequisites &amp; System Requirements</span><span class="num">02</span></li>
+      <li><span class="title">3. Setting Up Your Telegram Bot &amp; API Credentials</span><span class="num">03</span></li>
+      <li><span class="title">4. Configuring Groups and Channels</span><span class="num">04</span></li>
+      <li><span class="title">5. Quickstart: Running the Web App &amp; Dashboard</span><span class="num">05</span></li>
+      <li><span class="title">6. Native Android App Installation &amp; Usage</span><span class="num">06</span></li>
+      <li><span class="title">7. Instant Video Streaming &amp; Duplicate Prevention</span><span class="num">07</span></li>
+      <li><span class="title">8. CLI Tool (Headless &amp; Scripting Usage)</span><span class="num">08</span></li>
+      <li><span class="title">9. Troubleshooting, FAQ &amp; Privacy Notice</span><span class="num">09</span></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1 -->
+  <h2>1. Introduction &amp; Architecture Overview</h2>
+  <p>
+    When uploading large files, video libraries, or uncompressed media backups to Telegram, standard interfaces suffer from major drawbacks: network drops cause uploads to fail and restart from byte 0, uploaded videos require the recipient to download the entire file before playback, and duplicate files waste channel bandwidth and storage.
+  </p>
+  <p>
+    <strong>Telegram Resumable Media Uploader</strong> solves these issues through a dual-tier architecture:
+  </p>
+  <ul>
+    <li><strong>Stateful MTProto Chunking:</strong> Files are split into configurable chunks (typically 256 KB or 512 KB). Each chunk sent to Telegram's data centers is indexed into a local SQLite database (<code>uploader.db</code>). If interrupted, uploads resume immediately from the exact chunk without re-transmitting already received data.</li>
+    <li><strong>Lossless Faststart Optimization:</strong> For videos (MP4, MOV, MKV), the metadata container index (<code>moov</code> atom) is placed at byte 0 via FFmpeg copy stream. This enables Telegram's native player (AVPlayer on iOS/macOS, ExoPlayer on Android) to stream videos on tap without downloading.</li>
+    <li><strong>Persistent Dialog Cache:</strong> Discovered Telegram groups, supergroups, and channels are permanently indexed locally so destination dropdowns remain accessible even after Telegram's 24-hour update window expires.</li>
+  </ul>
+
+  <!-- SECTION 2 -->
+  <h2>2. Prerequisites &amp; System Requirements</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Requirement</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Operating System</strong></td>
+        <td>macOS, Linux, or Windows (WSL)</td>
+        <td>Host for the Python FastAPI server</td>
+      </tr>
+      <tr>
+        <td><strong>Python</strong></td>
+        <td>Python 3.10, 3.11, 3.12, or 3.15+</td>
+        <td>Backend server, Telethon MTProto client, database</td>
+      </tr>
+      <tr>
+        <td><strong>FFmpeg &amp; FFprobe</strong></td>
+        <td>Installed and available in PATH</td>
+        <td>Lossless video faststart remuxing and thumbnail extraction</td>
+      </tr>
+      <tr>
+        <td><strong>Telegram Account</strong></td>
+        <td>Active Telegram phone number</td>
+        <td>To create your bot token and API credentials</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 3 -->
+  <div class="page-break"></div>
+  <h2>3. Setting Up Your Telegram Bot &amp; API Credentials</h2>
+  <p>To run this application with your own Telegram account, you need two items: a <strong>Bot Token</strong> and optional <strong>Telegram API Credentials</strong>.</p>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">1</span>
+      <span>Create Your Telegram Bot via @BotFather</span>
+    </div>
+    <ol>
+      <li>Open Telegram and search for <code>@BotFather</code> (verified bot with blue checkmark).</li>
+      <li>Send the command: <code>/newbot</code></li>
+      <li>Follow the prompts to enter a Display Name (e.g. <em>My Media Uploader</em>) and a Username ending in <code>bot</code> (e.g. <em>my_personal_uploader_bot</em>).</li>
+      <li>BotFather will reply with your <strong>HTTP API Token</strong> (e.g. <code>123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ</code>). <em>Keep this token private!</em></li>
+      <li>Send <code>/setjoingroups</code> to <code>@BotFather</code> &rarr; select your bot &rarr; choose <strong>Enable</strong> so your bot can be added to your groups.</li>
+    </ol>
+  </div>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">2</span>
+      <span>Get Your Telegram API ID and Hash (Recommended for MTProto 2GB+ uploads)</span>
+    </div>
+    <ol>
+      <li>Log in to <a href="https://my.telegram.org" style="color: #24A1DE;">https://my.telegram.org</a> using your Telegram phone number.</li>
+      <li>Click on <strong>API development tools</strong>.</li>
+      <li>Fill out the form (App title and Short name can be anything simple like <em>MyUploader</em>).</li>
+      <li>Copy your <strong>App api_id</strong> (an integer like <code>12345678</code>) and <strong>App api_hash</strong> (a 32-character string).</li>
+    </ol>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">💡 What if my.telegram.org gives an "ERROR"?</div>
+    If Telegram web returns a generic error when generating an API hash, disable ad-blockers, try an incognito window, or simply leave the default API ID/Hash in <code>config.example.json</code> (which uses Telegram's open-source desktop credentials) and enter just your <strong>Bot Token</strong>.
+  </div>
+
+  <!-- SECTION 4 -->
+  <h2>4. Configuring Groups and Channels</h2>
+  <p>Your Telegram Bot needs permission to post in your target groups and channels:</p>
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">A</span>
+      <span>Adding Bot to a Group or Supergroup</span>
+    </div>
+    <ol>
+      <li>Open your Telegram Group &rarr; Tap Group Settings &rarr; <strong>Add Members</strong>.</li>
+      <li>Search for your bot's username (e.g. <code>@my_personal_uploader_bot</code>) and add it.</li>
+      <li>Promote the bot to <strong>Administrator</strong> (ensure <em>Send Messages</em> and <em>Post Media</em> permissions are checked).</li>
+      <li><strong>Crucial Step:</strong> Send any single message into the group (e.g. <code>/start</code> or <code>hi</code>). This allows the bot to register the group's Chat ID.</li>
+    </ol>
+  </div>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">B</span>
+      <span>Adding Bot to a Channel</span>
+    </div>
+    <ol>
+      <li>Open your Telegram Channel &rarr; Administrators &rarr; <strong>Add Administrator</strong>.</li>
+      <li>Search for your bot and grant <em>Post Messages</em> permission.</li>
+      <li>Post any test message in the channel so the bot detects it.</li>
+    </ol>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="page-break"></div>
+  <h2>5. Quickstart: Running the Web App &amp; Dashboard</h2>
+
+  <h3>Installation</h3>
+  <pre><code># 1. Clone the repository
+git clone https://github.com/amolvbharambe/telegram-media-uploader.git
+cd telegram-media-uploader
+
+# 2. Run the startup script (automatically configures venv and dependencies)
+chmod +x run.sh
+./run.sh</code></pre>
+
+  <p>The web server will start and be available at <strong><code>http://localhost:8080</code></strong>.</p>
+
+  <h3>Logging In &amp; Configuration</h3>
+  <ol>
+    <li>Open your browser to <code>http://localhost:8080</code> and click the <strong>Telegram &amp; Settings</strong> tab.</li>
+    <li>Select <strong>Bot Token Login</strong> and paste your Bot Token from @BotFather.</li>
+    <li>Click <strong>Connect Bot</strong>. The connection badge in the header will turn green: <code style="color: #16a34a; background: #dcfce7;">● Connected</code>.</li>
+  </ol>
+
+  <h3>Uploading Media</h3>
+  <ul>
+    <li><strong>Drag &amp; Drop:</strong> Drag multiple files or entire folders directly into the drop zone.</li>
+    <li><strong>Local Disk Path:</strong> Enter any folder path (e.g. <code>/Users/name/Videos</code>) to scan and queue gigabytes of files with zero browser upload delay.</li>
+    <li><strong>Destination Dropdown:</strong> Select your Telegram Group or Channel from the dropdown list.</li>
+    <li><strong>Send Options:</strong> Leave <em>Send as Raw Document</em> unchecked to enable instant inline video streaming.</li>
+  </ul>
+
+  <!-- SECTION 6 -->
+  <h2>6. Native Android App Installation &amp; Usage</h2>
+  <p>
+    A standalone native Android application (built with Jetpack Compose and Material 3) is included in the GitHub repository releases as <strong><code>TelegramUploader.apk</code></strong>.
+  </p>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">1</span>
+      <span>Installation</span>
+    </div>
+    <p>Download <code>TelegramUploader.apk</code> from the GitHub Releases page or directly from your running web server at <code>http://&lt;your-computer-ip&gt;:8080/download/app.apk</code>. Install the APK on your Android device (enable "Install unknown apps" if prompted).</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">2</span>
+      <span>Configuration</span>
+    </div>
+    <p>Open the app &rarr; Navigate to <strong>Settings</strong> &rarr; Enter your Bot Token &rarr; Tap <strong>Save &amp; Test Connection</strong>. The app verifies your bot credentials directly with Telegram's servers.</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-header">
+      <span class="step-badge">3</span>
+      <span>Queueing from Phone</span>
+    </div>
+    <p>Tap <strong>Select Media</strong> &rarr; Pick photos, videos, or documents from your phone gallery or file manager. The app automatically scans for existing duplicates in the selected Telegram group and uploads files with live progress notification bars.</p>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="page-break"></div>
+  <h2>7. Instant Video Streaming &amp; Duplicate Prevention</h2>
+
+  <h3>How Video Streaming Works (Technical Details)</h3>
+  <p>
+    Normally, camera recordings (from iPhones, Android phones, and dashcams) write video metadata at the end of the file in the <code>mdat</code> &rarr; <code>moov</code> structure. When uploaded to Telegram without faststart, the Telegram client cannot read video duration or keyframe tables until 100% of the file is downloaded.
+  </p>
+  <p>
+    This application runs an automated inspection on every video:
+  </p>
+  <pre><code>ffmpeg -i input.mov -c copy -movflags +faststart output.mp4</code></pre>
+  <p>
+    This moves the <code>moov</code> atom to byte 0. Because it uses <strong>stream copying (<code>-c copy</code>)</strong>, there is <strong>zero re-encoding, zero compression, and 100% exact original bit-for-bit quality preserved</strong> in milliseconds. It then attaches <code>DocumentAttributeVideo(supports_streaming=True)</code> so Telegram plays the video inline immediately upon tapping.
+  </p>
+
+  <h3>Group Duplicate Checking</h3>
+  <p>
+    Before starting an upload batch, tap <strong>🔍 Check Duplicates</strong> in the Web UI or Android app. The engine:
+  </p>
+  <ol>
+    <li>Scans Telegram group messages and local indexed task records.</li>
+    <li>Matches incoming files by exact filename, byte size, and content signatures.</li>
+    <li>Marks existing files with warning pills indicating the exact Telegram Message ID where the file already resides.</li>
+    <li>Provides a one-click <strong>⚡ Skip Duplicates</strong> button to prevent wasting data.</li>
+  </ol>
+
+  <!-- SECTION 8 -->
+  <h2>8. CLI Tool (Headless &amp; Scripting Usage)</h2>
+  <p>For power users, automated server backups, and headless environments, use <code>cli.py</code>:</p>
+  <pre><code># Authenticate with Bot Token
+python cli.py auth --bot-token "123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ"
+
+# Upload a single file with live speed & ETA
+python cli.py upload /path/to/movie.mp4 --chat -1001234567890
+
+# Upload an entire directory recursively
+python cli.py upload /path/to/media/ --chat @mychannel -r --concurrency 4
+
+# View queued and resumable tasks
+python cli.py queue
+
+# Resume interrupted tasks after a connection drop
+python cli.py resume</code></pre>
+
+  <!-- SECTION 9 -->
+  <h2>9. Troubleshooting, FAQ &amp; Privacy Notice</h2>
+
+  <div class="callout warning-callout">
+    <div class="callout-title">⚠️ Why did my groups disappear from the Destination dropdown?</div>
+    Telegram's Bot API (<code>getUpdates</code>) purges incoming chat events after 24 hours of inactivity. In version 1.1.0+, all discovered groups are permanently saved in your local SQLite database (<code>known_dialogs</code>). If a group was not detected, simply post any message into that group (e.g. <code>hi</code>) and click the 🔄 refresh icon.
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">🔒 Privacy &amp; Data Security Commitment</div>
+    This repository does <strong>not</strong> contain any hardcoded bot tokens, user credentials, personal phone numbers, or private chat IDs. All session databases, uploaded media caches, and authentication keys are stored exclusively in the local <code>data/</code> folder on your computer, which is strictly excluded from version control.
+  </div>
+
+  <div style="text-align: center; margin-top: 40px; color: #94a3b8; font-size: 9pt;">
+    Telegram Resumable Media Uploader &bull; Open Source Project &bull; Distributed under the MIT License
+  </div>
+
+</body>
+</html>

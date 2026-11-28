@@ -1,0 +1,16 @@
+{
+  "api_id": 2040,
+  "api_hash": "b18441a1ff607e10a989891a5462e627",
+  "bot_token": "YOUR_BOT_TOKEN_FROM_BOTFATHER",
+  "phone": null,
+  "auth_mode": "bot",
+  "chunk_size_kb": 256,
+  "max_concurrent_chunks": 4,
+  "max_retries": 15,
+  "retry_base_delay": 2.0,
+  "retry_max_delay": 60.0,
+  "auto_resume_on_startup": true,
+  "auto_delete_local_on_finish": false,
+  "host": "0.0.0.0",
+  "port": 8080
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="telegram_blue">#24A1DE</color>
+    <color name="telegram_dark_bg">#0E1621</color>
+    <color name="telegram_card_bg">#17212B</color>
+</resources>
